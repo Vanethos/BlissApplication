@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="badHealthBackground">#FFFF8A80</color>
+    <color name="goodHealthBackground">#FF81C784</color>
 </resources>
