@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:id="@+id/loading_background">
+
+    <!-- Loading Progress -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/status_spinner"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/status_check_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checking server health..."
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+
+    <!-- Error - Bad Health from Server -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/status_bad_health_imageview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/server_bad_health"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:scaleX="0"
+            android:scaleY="0"/>
+
+        <TextView
+            android:id="@+id/status_error_text"
+            style="@style/LoadingTextStatus"
+            android:text="The server health is down\nDo you want to retry?"
+            android:scaleX="0"
+            android:scaleY="0"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <Button
+            android:id="@+id/status_error_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retry"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/goodHealthBackground"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="20sp"
+            android:scaleX="0"
+            android:scaleY="0"/>
+
+    </LinearLayout>
+
+
+
+    <!-- OK Response from server -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/status_good_health_imageview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/server_good_health"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:scaleX="0"
+            android:scaleY="0"/>
+
+        <TextView
+            android:id="@+id/status_ok_text"
+            style="@style/LoadingTextStatus"
+            android:text="Server health is great!"
+            android:scaleX="0"
+            android:scaleY="0"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
