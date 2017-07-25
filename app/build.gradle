@@ -34,9 +34,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.airbnb:deeplinkdispatch:3.1.0'
+    compile 'com.airbnb:deeplinkdispatch:2.0.1'
     compile 'com.jakewharton:butterknife:8.7.0'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.airbnb:deeplinkdispatch-processor:3.1.0'
+    annotationProcessor 'com.airbnb:deeplinkdispatch-processor:2.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

@@ -5,18 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.airbnb.deeplinkdispatch.DeepLink;
 import com.google.gson.Gson;
@@ -29,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @DeepLink("blissrecruitment://questions")
-public class MainActivity extends AppCompatActivity implements LoadingFragment.GoToNextFragment,
+public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInterface,
         QuestionListAdapter.GoToQuestion, GetQuestionFragment.DeepLinkQuestionInterface, ShareDialogFragment.ShareEmailListener,
         QuestionFragment.SetUpNavigation{
 
@@ -49,13 +44,9 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.G
     public static final String DIALOG_LINK = "DIALOG_LINK";
     public static final String QUESTION_KEY = "QUESTION_KEY";
     public static final String QUESTION_FILTER_KEY = "QUESTION_FILTER_KEY";
-    public static final String QUESTION_ID_KEY = "QUESTION_ID_KEY";
     public static final int EMAIL_REQUESTCODE = 47;
 
-    private boolean mFromExternalURI = false;
     private String mGoToFragment;
-    private String mQuestionFilter;
-    private int mQuestionId;
     Fragment mSavedFragment;
 
 
@@ -69,16 +60,13 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.G
 
         // initialize the parameters to be used on the URI
         mGoToFragment = FRAGMENT_LIST_TAG;
-        mQuestionFilter = "";
-        mQuestionId = -1;
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
-            Log.d("INTENT", intent.getExtras().getString(DeepLinkHandler.FRAGMENT_TO_GO));
             Bundle bundle = intent.getExtras();
             mGoToFragment = bundle.getString(DeepLinkHandler.FRAGMENT_TO_GO);
         }
-//        Log.d("DEEPLINK", "DEEPLINK: "+intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false));
+        Log.d("DEEPLINK", "DEEPLINK: "+intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false));
 
     }
 
@@ -289,5 +277,5 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.G
             npe.printStackTrace();
         }
     }
-    
+
 }

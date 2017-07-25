@@ -31,14 +31,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by Gonçalo on 22/07/2017.
- */
-
 public class LoadingFragment extends Fragment {
 
-    public interface GoToNextFragment {
-        public void GoToNextFragment();
+    public interface LoadingFragmentInterface {
+        void GoToNextFragment();
     }
 
     @BindView(R.id.status_check_text)
@@ -63,7 +59,6 @@ public class LoadingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("LoadingFragment", "IWAS HERE");
         View view = inflater.inflate(R.layout.fragment_loading, container, false);
         ButterKnife.bind(this, view);
         // at the start of the view, the error message and button are hidden
@@ -96,8 +91,6 @@ public class LoadingFragment extends Fragment {
                 Log.d("response", "API RESPONSE: "+response.message());
                 if (response.message().equals("OK")) {
                     serverUp();
-//                    GoToNextFragment fragmentInterface = (GoToNextFragment)getActivity();
-//                    fragmentInterface.GoToNextFragment();
                 } else {
                     serverDown();
                 }
@@ -105,7 +98,7 @@ public class LoadingFragment extends Fragment {
 
             @Override
             public void onFailure(Call<APIStatus> call, Throwable t) {
-                Log.d("response", "ERROR");
+                t.printStackTrace();
             }
         });
     }
@@ -127,7 +120,7 @@ public class LoadingFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        GoToNextFragment fragmentInterface = (GoToNextFragment)getActivity();
+                        LoadingFragmentInterface fragmentInterface = (LoadingFragmentInterface)getActivity();
                         // if we are no longer on the fragment, then this will result in NULL
                         if (fragmentInterface != null) {
                             fragmentInterface.GoToNextFragment();

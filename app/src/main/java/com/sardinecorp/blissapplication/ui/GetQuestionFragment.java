@@ -18,7 +18,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by Gonçalo on 24/07/2017.
+ * This class is not used on this project
+ * If the DeepLink URI were to work, this class would download the data
+ * from the server and start a new Question Activity
  */
 
 public class GetQuestionFragment extends Fragment {

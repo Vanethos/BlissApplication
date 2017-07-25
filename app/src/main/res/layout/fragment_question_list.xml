@@ -79,14 +79,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Share"/>
+                android:text="Share"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="#FFFFFF"/>
 
             <Button
                 android:id="@+id/dismiss_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Dismiss"/>
+                android:text="Dismiss"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="#FFFFFF"/>
 
         </android.support.v7.widget.ButtonBarLayout>
     </LinearLayout>

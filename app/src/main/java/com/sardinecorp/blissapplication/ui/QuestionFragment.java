@@ -5,9 +5,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.Space;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,10 +38,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-/**
- * Created by Gonçalo on 24/07/2017.
- */
 
 public class QuestionFragment extends Fragment {
 
@@ -132,7 +126,6 @@ public class QuestionFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem shareItem = menu.add("Share");
         shareItem.setIcon(android.R.drawable.ic_menu_share);
-        // todo: change share icon to be opaque
         shareItem.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }

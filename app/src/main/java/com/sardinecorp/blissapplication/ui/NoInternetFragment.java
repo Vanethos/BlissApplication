@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.sardinecorp.blissapplication.R;
 
-/**
- * Created by Gonçalo on 22/07/2017.
- */
 
 public class NoInternetFragment extends Fragment {
 

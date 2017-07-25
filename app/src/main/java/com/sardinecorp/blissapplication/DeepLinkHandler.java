@@ -9,13 +9,13 @@ import android.widget.Toast;
 import com.airbnb.deeplinkdispatch.DeepLink;
 import com.sardinecorp.blissapplication.ui.MainActivity;
 
-// TODO: delete class?
+/*
+ * This class is not used on the project
+ * It's main objective is to fetch the URI and start the main activity with the intended action
+ */
+
 //@DeepLink("blissrecruitment://questions")
 public class DeepLinkHandler extends AppCompatActivity {
-
-    private String mGoToFragment;
-    private String mQuestionFilter;
-    private int mQuestionId;
 
     public static final String FRAGMENT_TO_GO = "FRAGMENT_TO_GO";
     public static final String FILTER = "FILTER";

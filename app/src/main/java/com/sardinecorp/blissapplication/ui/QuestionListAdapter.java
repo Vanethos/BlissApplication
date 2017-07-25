@@ -22,10 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Gonçalo on 23/07/2017.
- */
-
 public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapter.QuestionHolder> {
 
     private List<Question> mQuestions;
@@ -104,7 +100,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
 
         public void bindQuestion (Question question) {
             mQuestionText.setText(question.getQuestion());
-            //TODO: picasso for image binding
             Picasso.with(mContext).load(question.getThumbUrl()).into(mQuestionImage);
         }
     }

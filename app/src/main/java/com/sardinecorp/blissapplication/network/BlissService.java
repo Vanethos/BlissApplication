@@ -9,10 +9,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by Gonçalo on 22/07/2017.
- */
-
 public interface BlissService {
     String BASE_URL = "https://private-anon-7820b60ac1-blissrecruitmentapi.apiary-mock.com";
 

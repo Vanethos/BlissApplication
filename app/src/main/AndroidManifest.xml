@@ -16,6 +16,20 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <!--
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="questions"
+                    android:scheme="blissrecruitment"/>
+
+                    -->
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".DeepLinkHandler">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
@@ -24,9 +38,6 @@
                     android:scheme="blissrecruitment"/>
 
             </intent-filter>
-        </activity>
-        <activity android:name=".DeepLinkHandler">
-
         </activity>
     </application>
 

@@ -1,8 +1,5 @@
 package com.sardinecorp.blissapplication.network;
 
-/**
- * Created by Gonçalo on 23/07/2017.
- */
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

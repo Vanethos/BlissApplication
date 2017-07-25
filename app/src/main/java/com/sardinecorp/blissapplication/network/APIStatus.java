@@ -1,9 +1,5 @@
 package com.sardinecorp.blissapplication.network;
 
-/**
- * Created by Gonçalo on 22/07/2017.
- */
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

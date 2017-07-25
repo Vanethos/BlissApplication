@@ -1,9 +1,7 @@
 package com.sardinecorp.blissapplication.ui;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +11,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -23,7 +19,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sardinecorp.blissapplication.R;
 import com.sardinecorp.blissapplication.network.BlissService;
@@ -41,9 +36,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by Gonçalo on 22/07/2017.
- */
 
 public class QuestionListFragment extends Fragment {
 
@@ -152,7 +144,6 @@ public class QuestionListFragment extends Fragment {
     }
 
     private void getQuestions(int offset, int limit, final String filter) {
-        Log.d("RESPONSE", "we are going to retrieve questions");
         Retrofit client = RetrofitClient.getClient();
         BlissService service = client.create(BlissService.class);
         Call<List<Question>> listOfQuestions = service.getQuestions(offset, limit, filter);
@@ -181,7 +172,6 @@ public class QuestionListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Question>> call, Throwable t) {
-                Log.d("RESPONSE", "=== ERROR RECEIVING DATA ===");
                 mLoading = true;
             }
         });

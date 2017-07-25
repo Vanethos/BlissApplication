@@ -3,7 +3,6 @@ package com.sardinecorp.blissapplication.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +15,9 @@ import com.sardinecorp.blissapplication.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Gonçalo on 25/07/2017.
- */
 
 public class ShareDialogFragment extends DialogFragment implements TextView.OnEditorActionListener {
 
-    // todo: include which fragment we came from and include the question ID
     public interface ShareEmailListener {
         void inFinishEmail(String email, String link);
     }
@@ -50,7 +45,6 @@ public class ShareDialogFragment extends DialogFragment implements TextView.OnEd
             mTitleText = bundle.getString(MainActivity.DIALOG_TITLE);
             mLinkToSend = bundle.getString(MainActivity.DIALOG_LINK);
 
-            Log.d("SHAREDIALOG", "Is the bundle null?"+ mTitleText);
         } else {
             // set the "default" parameters
             mTitleText = "Share Questions";
