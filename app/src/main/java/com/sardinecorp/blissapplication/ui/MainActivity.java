@@ -30,7 +30,8 @@ import butterknife.ButterKnife;
 
 @DeepLink("blissrecruitment://questions")
 public class MainActivity extends AppCompatActivity implements LoadingFragment.GoToNextFragment,
-        QuestionListAdapter.GoToQuestion, GetQuestionFragment.DeepLinkQuestionInterface, ShareDialogFragment.ShareEmailListener {
+        QuestionListAdapter.GoToQuestion, GetQuestionFragment.DeepLinkQuestionInterface, ShareDialogFragment.ShareEmailListener,
+        QuestionFragment.SetUpNavigation{
 
     @BindView(R.id.toolbar_main)
     Toolbar mMainToolbar;
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.G
 
     private void addNoConnectionFragment() {
         saveCurrentFragment();
+        // check if there is a share fragment on the screen
+        ShareDialogFragment dialogFragment = (ShareDialogFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_DIALOG_TAG);
+        if (dialogFragment != null) {
+            dialogFragment.dismiss();
+        }
+
         // if there is a server check fragment, remove it
         LoadingFragment loadingFragment = (LoadingFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_LOADING_TAG);
         if (loadingFragment != null) {
@@ -262,4 +269,25 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.G
     private void saveCurrentFragment() {
         mSavedFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_holder);
     }
+
+    @Override
+    public void setupUpNavigation() {
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeUpNavigation() {
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
+    }
+    
 }

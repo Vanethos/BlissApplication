@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.Space;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,6 +47,11 @@ import retrofit2.Retrofit;
 
 public class QuestionFragment extends Fragment {
 
+    public interface SetUpNavigation {
+        void setupUpNavigation();
+        void removeUpNavigation();
+    }
+
     private Question mQuestion;
     private boolean mVoted;
 
@@ -54,6 +61,8 @@ public class QuestionFragment extends Fragment {
     ImageView mImage;
     @BindView(R.id.questions_group)
     RadioGroup mQuestionsGroup;
+    @BindView(R.id.question_post_button)
+    Button mPostButton;
 
 
     @Nullable
@@ -71,6 +80,9 @@ public class QuestionFragment extends Fragment {
         mVoted = false;
         // set up the share button on the fragment
         setHasOptionsMenu(true);
+        // setup the up navigation on the main activity
+        SetUpNavigation interf = (SetUpNavigation) getActivity();
+        interf.setupUpNavigation();
         return view;
     }
 
@@ -109,6 +121,14 @@ public class QuestionFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        // remove the up navigation on the main activity
+        SetUpNavigation interf = (SetUpNavigation) getActivity();
+        interf.removeUpNavigation();
+        super.onDestroyView();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem shareItem = menu.add("Share");
         shareItem.setIcon(android.R.drawable.ic_menu_share);
@@ -123,6 +143,9 @@ public class QuestionFragment extends Fragment {
             MainActivity.addShareDialogFragment(getActivity().getSupportFragmentManager(),
                     "Share Question "+mQuestion.getId(),
                     "blissrecruitment://questions?question_id="+mQuestion.getId());
+        } else {
+            // the other button that we have is the up navigation button
+            getActivity().getSupportFragmentManager().popBackStack();
         }
         return true;
     }
@@ -139,16 +162,25 @@ public class QuestionFragment extends Fragment {
             mQuestion.getChoices().get(questionId).setVotes(choicesVotes + 1);
             service.updateAnswer(mQuestion.getId(), mQuestion)
                     .enqueue(new Callback<Question>() {
-            @Override
-            public void onResponse(Call<Question> call, Response<Question> response) {
-                Log.d("RESPONSE", response.raw().toString());
-            }
+                @Override
+                public void onResponse(Call<Question> call, Response<Question> response) {
+                    Log.d("RESPONSE", response.raw().toString());
+                    // show a message stating that the message is sent
+                    Toast.makeText(getActivity(), "Thank you for your vote!", Toast.LENGTH_SHORT).show();
+                }
+    
+                @Override
+                public void onFailure(Call<Question> call, Throwable t) {
+                    t.printStackTrace();
+                    // show a message stating that the message is sent
+                    Toast.makeText(getActivity(), "Sorry, there was an error with your vote :(", Toast.LENGTH_LONG).show();
+                    mPostButton.setEnabled(true);
+                }
+            });
+            // disable the button
+            mPostButton.setEnabled(false);
 
-            @Override
-            public void onFailure(Call<Question> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+
         }
     }
 
@@ -162,6 +194,7 @@ public class QuestionFragment extends Fragment {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
+
 
 
 }
