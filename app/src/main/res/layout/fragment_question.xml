@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center">
+
+    <TextView
+        android:id="@+id/question_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="true"
+        tools:text="This is going to be a great question!"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/question_item_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        tools:src="@android:drawable/ic_lock_lock"
+        android:layout_gravity="center"
+        />
+
+    <RadioGroup
+        android:id="@+id/questions_group"
+        android:layout_width="match_parent"
+        android:layout_marginRight="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/question_post_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vote"/>
+
+
+
+</LinearLayout>

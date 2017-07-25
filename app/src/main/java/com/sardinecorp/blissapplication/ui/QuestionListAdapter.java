@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Gonçalo on 23/07/2017.
@@ -31,6 +32,11 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     private Context mContext;
     private LinearLayoutManager mLinearLayoutManager;
     private int mLastItem;
+
+    // interface to pass data into the main activity
+    public interface GoToQuestion {
+        void goToQuestion(int position);
+    }
 
     public QuestionListAdapter (List<Question> questions, Context context, LinearLayoutManager linearLayoutManager) {
         mQuestions = questions;
@@ -47,9 +53,16 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     }
 
     @Override
-    public void onBindViewHolder(QuestionHolder holder, int position) {
+    public void onBindViewHolder(QuestionHolder holder, final int position) {
         holder.bindQuestion(mQuestions.get(position));
         setAnimation(holder.itemView, position);
+        final GoToQuestion interf = (GoToQuestion) mContext;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                interf.goToQuestion(position);
+            }
+        });
     }
 
 

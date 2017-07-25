@@ -47,9 +47,9 @@ import retrofit2.Retrofit;
 
 public class QuestionListFragment extends Fragment {
 
-    List<Question> mQuestions;
-    QuestionListAdapter mAdapter;
-    LinearLayoutManager mLayoutManager;
+    protected List<Question> mQuestions;
+    private QuestionListAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @BindView(R.id.question_list_recycler)
     RecyclerView mRecyclerView;
@@ -96,25 +96,7 @@ public class QuestionListFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String getText = mEditText.getText().toString();
-                    Log.d("RESPONSE", "EditText text: "+getText);
-                    if (getText.trim().length()>0){
-                        // remove all the items from the list
-                        mAdapter.newQuestionList();
-                        mAdapter.notifyDataSetChanged();
-                        // hide the keyboard
-                        mEditText.clearFocus();
-                        InputMethodManager in = (InputMethodManager)getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                        in.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
-                        // show the hidden bar at the bottom
-                        slideToTop(mButtonLayout);
-                        // put the progressbar visible
-                        if(mProgressBar.getVisibility() == View.GONE) {
-                            mProgressBar.setVisibility(View.VISIBLE);
-                        }
-                        // query the API
-                        getQuestions(mOffset, 10, getText);
-                    }
+                    performSeatch();
                     return true;
                 }
 
@@ -122,6 +104,7 @@ public class QuestionListFragment extends Fragment {
             }
         });
         getQuestions(mOffset, 10, "");
+        // add "endless scrolling" to the recyclerview
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
         {
             @Override
@@ -154,6 +137,18 @@ public class QuestionListFragment extends Fragment {
         }
         // show the list of all questions
         getQuestions(mOffset, 10, "");
+    }
+
+    @OnClick(R.id.share_button)
+    public void shareListByEmail() {
+        MainActivity.addShareDialogFragment(getActivity().getSupportFragmentManager(),
+                "Share Question List Query",
+                "blissrecruitment://questions?question_filter="+mEditText.getText().toString());
+    }
+
+    @OnClick(R.id.question_list_search_icon)
+    public void doTheSearch() {
+        performSeatch();
     }
 
     private void getQuestions(int offset, int limit, final String filter) {
@@ -193,7 +188,7 @@ public class QuestionListFragment extends Fragment {
     }
 
 
-    public void slideToBottom(View view){
+    private void slideToBottom(View view){
         TranslateAnimation animate = new TranslateAnimation(0,0,0,view.getHeight());
         animate.setDuration(300);
         animate.setFillAfter(true);
@@ -201,7 +196,7 @@ public class QuestionListFragment extends Fragment {
         view.setVisibility(View.GONE);
     }
 
-    public void slideToTop(final View view){
+    private void slideToTop(final View view){
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -212,7 +207,25 @@ public class QuestionListFragment extends Fragment {
                 view.setVisibility(View.VISIBLE);
             }
         },1000);
+    }
 
+    private void performSeatch() {
+        String getText = mEditText.getText().toString();
+        // remove all the items from the list
+        mAdapter.newQuestionList();
+        mAdapter.notifyDataSetChanged();
+        // hide the keyboard
+        mEditText.clearFocus();
+        InputMethodManager in = (InputMethodManager)getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+        // show the hidden bar at the bottom
+        slideToTop(mButtonLayout);
+        // put the progressbar visible
+        if(mProgressBar.getVisibility() == View.GONE) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+        // query the API
+        getQuestions(mOffset, 10, getText);
     }
 
 }

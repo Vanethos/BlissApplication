@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sardinecorp.blissapplication.R;
 import com.sardinecorp.blissapplication.network.APIStatus;
@@ -38,8 +37,8 @@ import retrofit2.Retrofit;
 
 public class LoadingFragment extends Fragment {
 
-    public interface GoToListFragment {
-        public void GoToListFragment();
+    public interface GoToNextFragment {
+        public void GoToNextFragment();
     }
 
     @BindView(R.id.status_check_text)
@@ -97,8 +96,8 @@ public class LoadingFragment extends Fragment {
                 Log.d("response", "API RESPONSE: "+response.message());
                 if (response.message().equals("OK")) {
                     serverUp();
-//                    GoToListFragment fragmentInterface = (GoToListFragment)getActivity();
-//                    fragmentInterface.GoToListFragment();
+//                    GoToNextFragment fragmentInterface = (GoToNextFragment)getActivity();
+//                    fragmentInterface.GoToNextFragment();
                 } else {
                     serverDown();
                 }
@@ -128,10 +127,10 @@ public class LoadingFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        GoToListFragment fragmentInterface = (GoToListFragment)getActivity();
+                        GoToNextFragment fragmentInterface = (GoToNextFragment)getActivity();
                         // if we are no longer on the fragment, then this will result in NULL
                         if (fragmentInterface != null) {
-                            fragmentInterface.GoToListFragment();
+                            fragmentInterface.GoToNextFragment();
                         }
                     }
                 }, 1000);
